@@ -19,18 +19,6 @@ class ExampleUnitTest {
         assertEquals(4, 2 + 2)
     }
 
-    @Test
-    fun test_instance() {
-        val user = User( "1")
-        val user2 = User( "2", "John", "Wick")
-        //val user3 = User( "3", "John", "Silverhead", null, lastVisit = Date(), isOnline = true)
-
-        //user.printMe()
-        //user2.printMe()
-        //user3.printMe()
-
-        println("$user $user2")
-    }
 
     @Test
     fun test_factory(){
@@ -68,5 +56,15 @@ class ExampleUnitTest {
 
         val userView = user.toUserView()
         userView.printMe()
+    }
+
+    @Test
+    fun test_builder(){
+        val user = User.Builder().id("1")
+            .firstName("Kate")
+            .lastName("Chernysheva")
+            .isOnline(true)
+            .build()
+        println(user)
     }
 }
