@@ -24,3 +24,10 @@ fun String.truncate(numberOfSymbols: Int = 16): String {
     return result
 }
 
+fun String.stripHtml(): String {
+    this.replace(Regex("<.*?>"),"")
+    this.replace(Regex("\\s{2,}"),"")
+    this.replace(Regex("[&\\^\\\$\\\\\\\"\\'\\{\\}\\[\\]]"),"")
+    return this
+}
+

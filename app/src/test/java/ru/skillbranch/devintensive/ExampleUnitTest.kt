@@ -4,6 +4,7 @@ import org.junit.Test
 
 import org.junit.Assert.*
 import ru.skillbranch.devintensive.extensions.format
+import ru.skillbranch.devintensive.extensions.stripHtml
 import ru.skillbranch.devintensive.extensions.toUserView
 import ru.skillbranch.devintensive.models.User
 import java.util.*
@@ -66,5 +67,11 @@ class ExampleUnitTest {
             .isOnline(true)
             .build()
         println(user)
+    }
+
+    @Test
+    fun test_string(){
+        var str = "hfjsdflk    fkjflkjskl  fjlf dkjslkf     "
+        println("'" + str.stripHtml() + "'")
     }
 }
