@@ -12,8 +12,13 @@ class Bender(var status: Status = Status.NORMAL, var question: Question = Questi
     }
 
     fun listenAnswer(answer: String): Pair<String, Triple<Int,Int,Int>> {
+        if (question == Question.IDLE){
+            status = Status.NORMAL
+            return "${question.question}" to status.color
+        }
+
         val check = question.checkFormat(answer)
-        if (check != null) {
+        if (null != check) {
             return "$check\n${question.question}" to status.color
         }
 
@@ -21,7 +26,7 @@ class Bender(var status: Status = Status.NORMAL, var question: Question = Questi
             question = question.nextQuestion()
             "Отлично - ты справился\n${question.question}" to status.color
         } else {
-            if (status == Status.CRITICAL) {
+            if (status.equals(Status.CRITICAL)) {
                 status = status.nextStatus()
                 question = Question.NAME
                 "Это неправильный ответ. Давай все по новой\n${question.question}" to status.color
@@ -51,7 +56,7 @@ class Bender(var status: Status = Status.NORMAL, var question: Question = Questi
             override fun nextQuestion(): Question = PROFESSION
 
             override fun checkFormat(answer: String): String? {
-                return if (!answer[0].isUpperCase()){
+                return if (answer.getOrNull(0)?.isLowerCase() != false){
                     "Имя должно начинаться с заглавной буквы"
                 }else{
                     null
@@ -62,7 +67,7 @@ class Bender(var status: Status = Status.NORMAL, var question: Question = Questi
             override fun nextQuestion(): Question = MATERIAL
 
             override fun checkFormat(answer: String): String? {
-                return if (!answer[0].isLowerCase()){
+                return if (answer.getOrNull(0)?.isLowerCase() != true){
                     "Профессия должна начинаться со строчной буквы"
                 }else{
                     null
