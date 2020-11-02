@@ -1,23 +1,21 @@
-package ru.skillbranch.devintensive
+package ru.skillbranch.devintensive.ui.profile
 
-import android.graphics.Canvas
 import android.graphics.Color
 import android.graphics.PorterDuff
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
-import android.os.PersistableBundle
 import android.util.Log
 import android.view.View
 import android.view.inputmethod.EditorInfo
 import android.widget.EditText
 import android.widget.ImageView
-import android.widget.RelativeLayout
 import android.widget.TextView
 import kotlinx.android.synthetic.main.activity_main.*
+import ru.skillbranch.devintensive.R
 import ru.skillbranch.devintensive.extensions.hideKeyboard
 import ru.skillbranch.devintensive.models.Bender
 
-class MainActivity : AppCompatActivity(), View.OnClickListener {
+class ProfileActivity : AppCompatActivity(), View.OnClickListener {
     lateinit var benderImage: ImageView
     lateinit var textTxt: TextView
     lateinit var messageEt: EditText
@@ -27,7 +25,7 @@ class MainActivity : AppCompatActivity(), View.OnClickListener {
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        setContentView(R.layout.activity_main)
+        setContentView(R.layout.activity_profile)
 
         benderImage = iv_bender
         textTxt = tv_text
