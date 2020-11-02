@@ -12,8 +12,13 @@ class Bender(var status: Status = Status.NORMAL, var question: Question = Questi
     }
 
     fun listenAnswer(answer: String): Pair<String, Triple<Int,Int,Int>> {
+        if (question == Question.IDLE){
+            status = Status.NORMAL
+            return "${question.question}" to status.color
+        }
+
         val check = question.checkFormat(answer)
-        if (check != null) {
+        if (null != check) {
             return "$check\n${question.question}" to status.color
         }
 
