@@ -11,3 +11,11 @@ fun Context.dpToPx(dp: Float): Float {
             Resources.getSystem().displayMetrics
     )
 }
+
+fun Context.pxToDp(px: Float): Float {
+    return px/ TypedValue.applyDimension(
+            TypedValue.COMPLEX_UNIT_DIP,
+            1.0F,
+            Resources.getSystem().displayMetrics
+    )
+}

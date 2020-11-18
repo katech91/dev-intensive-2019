@@ -6,11 +6,16 @@ import android.util.AttributeSet
 import android.util.Log
 import android.widget.ImageView
 import androidx.annotation.ColorInt
+import androidx.annotation.ColorRes
+import androidx.annotation.Dimension
 import androidx.annotation.Px
+import androidx.core.content.ContextCompat
 import androidx.core.graphics.drawable.toBitmap
+import androidx.core.graphics.toColorInt
 import androidx.core.graphics.toRectF
 import ru.skillbranch.devintensive.R
 import ru.skillbranch.devintensive.extensions.dpToPx
+import ru.skillbranch.devintensive.extensions.pxToDp
 
 class CircleImageView @JvmOverloads constructor(
         context: Context,
@@ -81,5 +86,27 @@ class CircleImageView @JvmOverloads constructor(
     private fun prepareShader(w: Int, h: Int) {
         val srcBm = drawable.toBitmap(w, h, Bitmap.Config.ARGB_8888)
         imagePaint.shader = BitmapShader(srcBm, Shader.TileMode.CLAMP, Shader.TileMode.CLAMP)
+    }
+
+    @Dimension
+    fun getBorderWidth():Int{
+        return context.pxToDp(borderWidth).toInt()
+    }
+    fun setBorderWidth(@Dimension dp:Int){
+        borderWidth = context.dpToPx(dp.toFloat())
+    }
+
+    @ColorRes
+    fun getBorderColor():Int{
+        return borderColor
+    }
+
+    fun setBorderColor(hex:String){
+        borderColor = hex.toColorInt()
+    }
+
+    fun setBorderColor(@ColorRes colorId: Int){
+        val color = ContextCompat.getColor(context, colorId)
+        borderColor = color
     }
 }
