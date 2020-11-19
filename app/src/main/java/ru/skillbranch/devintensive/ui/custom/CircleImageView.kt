@@ -16,6 +16,7 @@ import androidx.core.graphics.toRectF
 import ru.skillbranch.devintensive.R
 import ru.skillbranch.devintensive.extensions.dpToPx
 import ru.skillbranch.devintensive.extensions.pxToDp
+import ru.skillbranch.devintensive.models.User
 
 class CircleImageView @JvmOverloads constructor(
         context: Context,
@@ -70,7 +71,6 @@ class CircleImageView @JvmOverloads constructor(
             right = w
             bottom = h
         }
-
         prepareShader(w,h)
     }
 
@@ -108,5 +108,9 @@ class CircleImageView @JvmOverloads constructor(
     fun setBorderColor(@ColorRes colorId: Int){
         val color = ContextCompat.getColor(context, colorId)
         borderColor = color
+    }
+
+    private fun drawInitials() {
+
     }
 }

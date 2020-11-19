@@ -20,3 +20,5 @@ fun User.toUserView(): UserView{
     )
 }
 
+fun User.getInitials() = Utils.toInitials(firstName, lastName)
+
