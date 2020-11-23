@@ -5,6 +5,8 @@ import android.graphics.PorterDuff
 import android.graphics.PorterDuffColorFilter
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
+import android.text.Editable
+import android.text.TextWatcher
 import android.util.Log
 import android.view.View
 import android.widget.EditText
@@ -15,6 +17,7 @@ import androidx.lifecycle.ViewModelProviders
 import kotlinx.android.synthetic.main.activity_profile.*
 import ru.skillbranch.devintensive.R
 import ru.skillbranch.devintensive.models.Profile
+import ru.skillbranch.devintensive.utils.Utils
 import ru.skillbranch.devintensive.viewModels.ProfileViewModel
 
 class ProfileActivity : AppCompatActivity(){
@@ -76,13 +79,35 @@ class ProfileActivity : AppCompatActivity(){
         showCurrentMode(isEditeMode)
 
         btn_edit.setOnClickListener{
-            if (isEditeMode) saveProfileInfo()
+            if (isEditeMode) {
+                if (wr_repository.isErrorEnabled) {
+                    et_repository.text.clear()
+                    wr_repository.isErrorEnabled = false
+                    wr_repository.error = null
+                }
+                saveProfileInfo()
+            }
             isEditeMode = !isEditeMode
             showCurrentMode(isEditeMode)
         }
 
         btn_switch_theme.setOnClickListener(View.OnClickListener {
             viewModel.switchTheme()
+        })
+
+        et_repository.addTextChangedListener(object: TextWatcher{
+            override fun afterTextChanged(s: Editable?) {
+                wr_repository.error = null
+                wr_repository.isErrorEnabled = !validateRepository()
+                if (wr_repository.isErrorEnabled){
+                    wr_repository.error = "Невалидный адрес репозитория"
+                }
+            }
+            override fun beforeTextChanged(s: CharSequence?, start: Int, count: Int, after: Int) {
+            }
+
+            override fun onTextChanged(p0: CharSequence?, p1: Int, p2: Int, p3: Int) {
+            }
         })
     }
 
@@ -131,5 +156,21 @@ class ProfileActivity : AppCompatActivity(){
         }
     }
 
+    fun validateRepository(): Boolean {
+        if (et_repository.text.isNullOrEmpty()){
+            return true
+        }
 
+        val regexRepository = Regex("^(https://)?(w{3}\\.)?github\\.com\\/(\\w+)\$")
+        val repositoryName = regexRepository.find(et_repository.text)?.groups?.get(3)?.value
+
+        val excludePaths = listOf("enterprise", "features", "topics", "collections",
+                "trending", "events", "marketplace", "pricing", "nonprofit", "customer-stories",
+                "security", "login", "join")
+
+        if (!repositoryName.isNullOrEmpty() && !excludePaths.contains(repositoryName)) {
+            return true
+        }
+        return false
+    }
 }
