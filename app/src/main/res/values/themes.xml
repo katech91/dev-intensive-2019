@@ -11,7 +11,7 @@
         <item name="colorAccentedSurface">@color/color_primary_light</item>
         <item name="colorIcon">@color/color_gray</item>
         <item name="colorDivider">@color/color_divider_dark</item>
-
+        <item name="colorWhite">@color/color_white</item>
     </style>
 
     <style name="SplashTheme" parent="AppTheme">

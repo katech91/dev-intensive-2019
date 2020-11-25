@@ -19,7 +19,9 @@ object Utils {
         return firstName to lastName
     }
 
-    fun transliteration(payload: String, divider: String = " "): String {
+    fun transliteration(payload: String?, divider: String = " "): String {
+        if (payload.isNullOrEmpty()) return ""
+
         var translit: String =""
 
         for (liter in payload) {

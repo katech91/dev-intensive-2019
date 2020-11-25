@@ -1,5 +1,7 @@
 package ru.skillbranch.devintensive.models
 
+import android.util.Log
+import ru.skillbranch.devintensive.ui.custom.AvatarInitialsDrawable
 import ru.skillbranch.devintensive.utils.Utils
 
 data class Profile(
@@ -23,4 +25,18 @@ data class Profile(
         "rating" to rating,
         "respect" to respect
     )
+
+    fun getDefaultAvatar(charColor:Int, backgroundColor:Int) : AvatarInitialsDrawable? {
+        var initials = Utils.toInitials(firstName, lastName)
+        initials = Utils.transliteration(initials,"")
+
+        Log.d("M_Profile","getDefaultAvatar initials: $initials")
+
+        if(initials.isNullOrEmpty()) {
+            return null
+        }
+
+        return AvatarInitialsDrawable(initials, charColor, backgroundColor)
+
+    }
 }

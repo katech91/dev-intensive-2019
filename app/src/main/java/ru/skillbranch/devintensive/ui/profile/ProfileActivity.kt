@@ -8,9 +8,12 @@ import android.os.Bundle
 import android.text.Editable
 import android.text.TextWatcher
 import android.util.Log
+import android.util.TypedValue
 import android.view.View
 import android.widget.EditText
 import android.widget.TextView
+import androidx.annotation.AttrRes
+import androidx.annotation.ColorInt
 import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.ViewModelProviders
@@ -61,6 +64,7 @@ class ProfileActivity : AppCompatActivity(){
                 v.text = it[k].toString()
             }
         }
+        updateAvatar(profile)
     }
 
     private fun initViews(savedInstanceState: Bundle?) {
@@ -153,6 +157,24 @@ class ProfileActivity : AppCompatActivity(){
                 repository = et_repository.text.toString()
         ).apply {
             viewModel.saveProfileData(this)
+        }
+    }
+
+    @ColorInt
+    fun getColorByAttributeId(@AttrRes attrIdForColor: Int): Int {
+        val typedValue = TypedValue()
+        theme.resolveAttribute(attrIdForColor, typedValue, true)
+        return typedValue.data
+    }
+
+    private fun updateAvatar(profile: Profile) {
+
+        val colorAccent = getColorByAttributeId(R.attr.colorAccent)
+        val colorFont = getColorByAttributeId(R.attr.colorWhite)
+
+        val avatar = profile.getDefaultAvatar(colorFont, colorAccent)
+        if (null != avatar) {
+            iv_avatar.setImageDrawable(avatar)
         }
     }
 
