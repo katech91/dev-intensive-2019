@@ -161,7 +161,7 @@ class ProfileActivity : AppCompatActivity(){
             return true
         }
 
-        val regexRepository = Regex("^(https://)?(w{3}\\.)?github\\.com\\/(\\w+)\$")
+        val regexRepository = Regex("^(https?://)?(w{3}\\.)?github\\.com/(?<repoName>[a-zA-Z0-9]+-?[a-zA-Z0-9]+)/?$")
         val repositoryName = regexRepository.find(et_repository.text)?.groups?.get(3)?.value
 
         val excludePaths = listOf("enterprise", "features", "topics", "collections",
