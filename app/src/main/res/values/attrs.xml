@@ -14,4 +14,9 @@
         <attr name="cv_borderColor" format="color"/>
     </declare-styleable>
 
+    <declare-styleable name="AvatarImageView">
+        <attr name="aiv_borderWidth" format="dimension"/>
+        <attr name="aiv_borderColor" format="color"/>
+    </declare-styleable>
+
 </resources>
