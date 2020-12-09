@@ -1,18 +1,13 @@
 package ru.skillbranch.devintensive.ui.adapters
 
-import android.content.ClipData
 import android.graphics.Color
 import android.util.Log
-import android.util.TypedValue
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import android.widget.TextView
-import androidx.annotation.AttrRes
-import androidx.annotation.ColorInt
-import androidx.appcompat.view.menu.MenuView
 import androidx.recyclerview.widget.DiffUtil
 import androidx.recyclerview.widget.RecyclerView
+import com.bumptech.glide.Glide
 import kotlinx.android.extensions.LayoutContainer
 import kotlinx.android.synthetic.main.activity_profile.*
 import kotlinx.android.synthetic.main.item_chat_group.*
@@ -21,10 +16,6 @@ import kotlinx.android.synthetic.main.item_chat_single.view.*
 import ru.skillbranch.devintensive.R
 import ru.skillbranch.devintensive.models.data.ChatItem
 import ru.skillbranch.devintensive.models.data.ChatType
-import ru.skillbranch.devintensive.ui.custom.AvatarImageView
-import ru.skillbranch.devintensive.ui.custom.AvatarInitialsDrawable
-import ru.skillbranch.devintensive.ui.custom.CircleImageView
-import java.security.acl.Group
 
 class ChatAdapter(val listener: (ChatItem)-> Unit) : RecyclerView.Adapter<ChatAdapter.ChatItemViewHolder>() {
     companion object{
@@ -97,9 +88,13 @@ class ChatAdapter(val listener: (ChatItem)-> Unit) : RecyclerView.Adapter<ChatAd
 
         override fun bind(item: ChatItem, listener: (ChatItem) -> Unit) {
             if(item.avatar == null) {
+                Glide.with(itemView)
+                        .clear(iv_avatar_single)
                 iv_avatar_single.setInitials(item.initials)
             }else{
-                // TODO: 11/30/20 set drawable 
+                Glide.with(itemView)
+                        .load(item.avatar)
+                        .into(iv_avatar_single)
             }
 
             sv_indicator.visibility = if (item.isOnline) View.VISIBLE else View.VISIBLE
