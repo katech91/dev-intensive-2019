@@ -2,6 +2,7 @@ package ru.skillbranch.devintensive.ui.custom
 
 import android.content.Context
 import android.graphics.*
+import android.graphics.drawable.Drawable
 import android.util.AttributeSet
 import android.util.Log
 import android.util.TypedValue
@@ -47,10 +48,13 @@ class AvatarImageView @JvmOverloads constructor(
     private val imagePaint = Paint(Paint.ANTI_ALIAS_FLAG)
     private val initialsPaint = Paint(Paint.ANTI_ALIAS_FLAG)
     private val borderPaint = Paint(Paint.ANTI_ALIAS_FLAG)
+    private val avatarPaint = Paint(Paint.ANTI_ALIAS_FLAG)
     private val viewRect = Rect()
 
     private var initials: String = "??"
     private var drawable = AvatarInitialsDrawable(initials)
+
+    private var avatar: String? = null
 
     init {
         if (attrs != null){
@@ -59,7 +63,7 @@ class AvatarImageView @JvmOverloads constructor(
                     R.styleable.AvatarImageView_aiv_borderWidth,
                     context.dpToPx(AvatarImageView.DEFAULT_BORDER_WIDTH)
             )
-            Log.d("M_CircleImageView","$borderWidth px")
+            Log.d("M_AvatarImageView","init")
 
             borderColor = ta.getColor(R.styleable.AvatarImageView_aiv_borderColor, AvatarImageView.DEFAULT_BORDER_COLOR)
 
@@ -74,6 +78,12 @@ class AvatarImageView @JvmOverloads constructor(
         val half = (borderWidth/2).toInt()
         viewRect.inset(half, half)
         canvas.drawOval(viewRect.toRectF(),borderPaint)
+
+        if (avatar != null){
+            drawAvatar(canvas)
+        }else{
+            drawInitials(canvas)
+        }
     }
 
     override fun onSizeChanged(w: Int, h: Int, oldw: Int, oldh: Int) {
@@ -101,12 +111,40 @@ class AvatarImageView @JvmOverloads constructor(
         if (w == 0 || drawable == null) return
         val srcBm = drawable.toBitmap(w, h, Bitmap.Config.ARGB_8888)
         imagePaint.shader = BitmapShader(srcBm, Shader.TileMode.CLAMP, Shader.TileMode.CLAMP)
+        Log.d("M_AvatarImageView","prepareShader")
+    }
+
+    override fun setImageBitmap(bm: Bitmap?) {
+        super.setImageBitmap(bm)
+        if (avatar != null) prepareShader(getWidth(),getHeight())
+        Log.d("M_AvatarImageView","setImageBitmap")
+    }
+
+    override fun setImageDrawable(drawable: Drawable?) {
+        Log.d("M_AvatarImageView","setImageDrawable. ${this.getWidth()}")
+        super.setImageDrawable(drawable)
+        if (avatar != null) prepareShader(getWidth(), getHeight())
+
+    }
+
+    override fun setImageResource(resId: Int) {
+        super.setImageResource(resId)
+        if (avatar != null) prepareShader(getWidth(),getHeight())
+        Log.d("M_AvatarImageView","setImageResource")
+    }
+
+    private fun drawAvatar(canvas: Canvas){
+        canvas.drawOval(viewRect.toRectF(), avatarPaint)
     }
 
     fun setInitials(chars: String?){
         if (!chars.isNullOrEmpty()) {
             initials = chars
         }
+    }
+
+    fun setAvatar(text: String){
+        avatar = text
     }
 
     private fun drawInitials(canvas: Canvas) {

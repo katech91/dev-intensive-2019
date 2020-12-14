@@ -1,22 +1,30 @@
 package ru.skillbranch.devintensive.viewModels
 
 import android.util.Log
-import androidx.lifecycle.LiveData
-import androidx.lifecycle.Transformations
-import androidx.lifecycle.ViewModel
+import androidx.lifecycle.*
 import ru.skillbranch.devintensive.extensions.mutableLiveData
 import ru.skillbranch.devintensive.models.data.UserItem
 import ru.skillbranch.devintensive.repositories.GroupRepository
 
 class GroupViewModel: ViewModel() {
+    private val query = mutableLiveData("")
     private val groupRepository = GroupRepository
     private val userItems = mutableLiveData(loadUsers())
-    private var selectedItems = Transformations.map(userItems){users -> users.filter { it.isSelected }}
+    private val selectedItems = Transformations.map(userItems){users -> users.filter { it.isSelected }}
 
 
     fun getUsersData(): LiveData<List<UserItem>>{
-        Log.d("M_GroupViewModel","getUserData")
-        return userItems
+        val result = MediatorLiveData<List<UserItem>>()
+
+        val filterF = {
+            val queryStr = query.value!!
+            val users = userItems.value!!
+            result.value = if (queryStr.isEmpty()) users
+            else users.filter { it.fullName.contains(queryStr, true) }
+        }
+        result.addSource(userItems){ filterF.invoke() }
+        result.addSource(query){ filterF.invoke() }
+        return result
     }
 
     fun getSelectedData(): LiveData<List<UserItem>> = selectedItems
@@ -37,6 +45,14 @@ class GroupViewModel: ViewModel() {
         }
     }
 
+    fun handleSearchQuery(text: String) {
+        query.value = text
+    }
+
     private fun loadUsers(): List<UserItem> = groupRepository.loadUsers().map{ it.toUserItem() }
+    fun handleCreateGroup() {
+        groupRepository.createChat(selectedItems.value!!)
+    }
+
 
 }

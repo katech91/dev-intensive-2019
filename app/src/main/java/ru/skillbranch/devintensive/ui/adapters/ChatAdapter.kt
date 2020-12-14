@@ -92,6 +92,7 @@ class ChatAdapter(val listener: (ChatItem)-> Unit) : RecyclerView.Adapter<ChatAd
                         .clear(iv_avatar_single)
                 iv_avatar_single.setInitials(item.initials)
             }else{
+                iv_avatar_single.setAvatar(item.avatar)
                 Glide.with(itemView)
                         .load(item.avatar)
                         .into(iv_avatar_single)
