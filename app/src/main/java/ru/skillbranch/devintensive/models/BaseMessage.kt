@@ -14,6 +14,10 @@ abstract class BaseMessage (
 
     abstract fun formatMessage(): String
 
+    abstract fun format(): String
+
+    abstract fun getMessage(): String?
+
     companion object AbstractFactory{
         var lastId = -1
 

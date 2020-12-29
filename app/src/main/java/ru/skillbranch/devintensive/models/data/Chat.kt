@@ -1,7 +1,10 @@
 package ru.skillbranch.devintensive.models.data
 
 import android.icu.text.CaseMap
+import android.util.Log
+import ru.skillbranch.devintensive.extensions.format
 import ru.skillbranch.devintensive.extensions.shortFormat
+import ru.skillbranch.devintensive.extensions.truncate
 import ru.skillbranch.devintensive.models.BaseMessage
 import ru.skillbranch.devintensive.utils.Utils
 import java.util.*
@@ -13,22 +16,34 @@ data class Chat(
         var messages: MutableList<BaseMessage> = mutableListOf(),
         var isArchived: Boolean = false
 ) {
-        fun unreadableMessageCount(): Int{
-                //TODO implement me
-                return 0
-        }
+        fun unreadableMessageCount(): Int = messages.size
 
         private fun lastMessageDate(): Date? {
-                //TODO implement me
-                return Date()
+                return if (messages.isEmpty()){
+                        null
+                }else{
+                        messages.last().date
+                }
         }
 
         private fun lastMessageShort(): Pair<String, String>{
-                //TODO implement me
-                return "Сообщений еще нет" to "@John_Doe"
+                if (messages.isEmpty()) {
+                        return "Сообщений еще нет" to "@John_Doe"
+                }else {
+                        val lastMessage = messages.last()
+                        val from = lastMessage.from?.firstName + lastMessage.from?.lastName
+                        val message = lastMessage.getMessage() ?: ""
+                        var pair: Pair<String,String> = "" to ""
+                        when(lastMessage.format()){
+                                "Image" -> pair ="${lastMessage.from?.firstName}- отправил фото" to from
+                                "Text" -> pair = message.truncate() to from
+                        }
+                        return pair
+                }
         }
 
         private fun isSingle(): Boolean = members.size == 1
+
         fun toChatItem(): ChatItem {
                 return if (isSingle()){
                         val user = members.first()

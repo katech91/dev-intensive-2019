@@ -52,7 +52,7 @@ class AvatarImageView @JvmOverloads constructor(
     private val viewRect = Rect()
 
     private var initials: String = "??"
-    private var drawable = AvatarInitialsDrawable(initials)
+//    private var drawable = AvatarInitialsDrawable(initials)
 
     private var avatar: String? = null
 
@@ -65,8 +65,8 @@ class AvatarImageView @JvmOverloads constructor(
             )
             Log.d("M_AvatarImageView","init")
 
-            borderColor = ta.getColor(R.styleable.AvatarImageView_aiv_borderColor, AvatarImageView.DEFAULT_BORDER_COLOR)
-
+            //borderColor = ta.getColor(R.styleable.AvatarImageView_aiv_borderColor, AvatarImageView.DEFAULT_BORDER_COLOR)
+borderColor = Color.RED
             ta.recycle()
         }
         scaleType = ScaleType.CENTER_CROP
@@ -74,16 +74,17 @@ class AvatarImageView @JvmOverloads constructor(
     }
 
     override fun onDraw(canvas: Canvas){
-        drawInitials(canvas)
-        val half = (borderWidth/2).toInt()
-        viewRect.inset(half, half)
-        canvas.drawOval(viewRect.toRectF(),borderPaint)
 
         if (avatar != null){
             drawAvatar(canvas)
         }else{
             drawInitials(canvas)
         }
+
+        val half = (borderWidth/2).toInt()
+
+        viewRect.inset(half, half)
+        canvas.drawOval(viewRect.toRectF(),borderPaint)
     }
 
     override fun onSizeChanged(w: Int, h: Int, oldw: Int, oldh: Int) {
@@ -110,26 +111,26 @@ class AvatarImageView @JvmOverloads constructor(
     private fun prepareShader(w: Int, h: Int) {
         if (w == 0 || drawable == null) return
         val srcBm = drawable.toBitmap(w, h, Bitmap.Config.ARGB_8888)
-        imagePaint.shader = BitmapShader(srcBm, Shader.TileMode.CLAMP, Shader.TileMode.CLAMP)
+        avatarPaint.shader = BitmapShader(srcBm, Shader.TileMode.CLAMP, Shader.TileMode.CLAMP)
         Log.d("M_AvatarImageView","prepareShader")
     }
 
     override fun setImageBitmap(bm: Bitmap?) {
         super.setImageBitmap(bm)
-        if (avatar != null) prepareShader(getWidth(),getHeight())
+        if (avatar != null) prepareShader(width,height)
         Log.d("M_AvatarImageView","setImageBitmap")
     }
 
     override fun setImageDrawable(drawable: Drawable?) {
-        Log.d("M_AvatarImageView","setImageDrawable. ${this.getWidth()}")
+        Log.d("M_AvatarImageView","setImageDrawable. $width")
         super.setImageDrawable(drawable)
-        if (avatar != null) prepareShader(getWidth(), getHeight())
+        if (avatar != null) prepareShader(width, height)
 
     }
 
     override fun setImageResource(resId: Int) {
         super.setImageResource(resId)
-        if (avatar != null) prepareShader(getWidth(),getHeight())
+        if (avatar != null) prepareShader(width,height)
         Log.d("M_AvatarImageView","setImageResource")
     }
 

@@ -11,7 +11,8 @@
         android:id="@+id/iv_avatar_single"
         android:layout_width="@dimen/avatar_item_size"
         android:layout_height="@dimen/avatar_item_size"
-        android:layout_alignParentLeft="true"/>
+        android:layout_alignParentLeft="true"
+        android:src="@drawable/cat"/>
 
     <View
         android:id="@+id/sv_indicator"
