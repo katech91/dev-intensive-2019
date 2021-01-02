@@ -1,4 +1,4 @@
-package ru.skillbranch.devintensive.data.managers
+package ru.skillbranch.devintensive.managers
 
 import androidx.lifecycle.MutableLiveData
 import ru.skillbranch.devintensive.extensions.mutableLiveData

@@ -9,6 +9,7 @@ import ru.skillbranch.devintensive.repositories.ChatRepository
 import ru.skillbranch.devintensive.utils.DataGenerator
 
 class MainViewModel: ViewModel() {
+    private val query = mutableLiveData("")
     private val chatRepository = ChatRepository
     private val chats = Transformations.map(chatRepository.loadChats()){ chats ->
         return@map chats.filter { !it.isArchived }
@@ -32,4 +33,7 @@ class MainViewModel: ViewModel() {
         chatRepository.update(chat.copy(isArchived = false))
     }
 
+    fun handleSearchQuery(text: String) {
+        query.value = text
+    }
 }
