@@ -1,4 +1,4 @@
-package ru.skillbranch.devintensive.viewModels
+package ru.skillbranch.devintensive.viewmodels
 
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.Transformations
@@ -6,7 +6,6 @@ import androidx.lifecycle.ViewModel
 import ru.skillbranch.devintensive.extensions.mutableLiveData
 import ru.skillbranch.devintensive.models.data.ChatItem
 import ru.skillbranch.devintensive.repositories.ChatRepository
-import ru.skillbranch.devintensive.utils.DataGenerator
 
 class MainViewModel: ViewModel() {
     private val query = mutableLiveData("")

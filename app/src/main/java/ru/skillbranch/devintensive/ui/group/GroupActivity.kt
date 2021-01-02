@@ -1,6 +1,5 @@
 package ru.skillbranch.devintensive.ui.group
 
-import android.content.Intent
 import android.content.res.ColorStateList
 import android.graphics.Color
 import androidx.appcompat.app.AppCompatActivity
@@ -22,7 +21,7 @@ import kotlinx.android.synthetic.main.activity_main.toolbar
 import ru.skillbranch.devintensive.R
 import ru.skillbranch.devintensive.models.data.UserItem
 import ru.skillbranch.devintensive.ui.adapters.UserAdapter
-import ru.skillbranch.devintensive.viewModels.GroupViewModel
+import ru.skillbranch.devintensive.viewmodels.GroupViewModel
 import kotlinx.android.synthetic.main.activity_group.fab as fab
 
 class GroupActivity : AppCompatActivity() {
