@@ -18,7 +18,7 @@ data class Chat(
 ) {
         fun unreadableMessageCount(): Int = messages.size
 
-        private fun lastMessageDate(): Date? {
+        fun lastMessageDate(): Date? {
                 return if (messages.isEmpty()){
                         null
                 }else{

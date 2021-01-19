@@ -42,16 +42,12 @@ class ChatAdapter(val listener: (ChatItem)-> Unit) : RecyclerView.Adapter<ChatAd
     }
 
     override fun onBindViewHolder(holder: ChatItemViewHolder, position: Int) {
-        Log.d("M_ChatAdapter","onBindViewHolder $position")
         holder.bind(items[position], listener)
     }
 
     override fun getItemCount(): Int = items.size
 
     fun updateData(data: List<ChatItem>){
-
-        Log.d("M_ChatAdapter","update data adapter - new data ${data.size} hash: ${data.hashCode()}" +
-            "old data ${items.size} hash: ${items.hashCode()}")
 
         val diffCallback = object: DiffUtil.Callback(){
             override fun getOldListSize(): Int = items.size

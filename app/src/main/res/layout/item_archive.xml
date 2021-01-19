@@ -6,52 +6,51 @@
     android:padding="@dimen/spacing_normal_16"
     android:background="@android:color/white">
 
-    <ru.skillbranch.devintensive.ui.custom.AvatarImageView
-        android:id="@+id/iv_avatar_group"
-        android:layout_width="@dimen/avatar_item_size"
-        android:layout_height="@dimen/avatar_item_size"
+    <ImageView
+        android:id="@+id/iv_archive_icon"
+        android:layout_width="40dp"
+        android:layout_height="40dp"
         android:layout_marginRight="@dimen/spacing_normal_16"
-        android:layout_alignParentLeft="true"/>
+        android:layout_alignParentLeft="true"
+        android:src="@drawable/ic_baseline_archive_40"/>
 
     <TextView
-        android:id="@+id/tv_title_group"
+        android:id="@+id/tv_archive_title"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        tools:text = "chat title"
-        android:textColor="@color/color_primary"
-        android:fontFamily="sans-serif-medium"
-        android:textSize="14sp"
-        android:layout_toRightOf="@id/iv_avatar_group"
-        android:layout_toLeftOf="@id/tv_date_group"
-        android:layout_marginRight="@dimen/spacing_normal_16"
-        android:maxLines="1"/>
-
-    <TextView
-        android:id="@+id/tv_message_author"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        tools:text = "John_Doe"
-        android:textColor="@color/color_primary"
-        android:fontFamily="sans-serif-medium"
-        android:textSize="14sp"
-        android:layout_toRightOf="@id/iv_avatar_group"
-        android:layout_below="@id/tv_title_group"/>
-
-    <TextView
-        android:id="@+id/tv_message_group"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        tools:text = "Когда я проходил интенсив, я мало спал"
+        android:text="Архив чатов"
         android:textColor="@color/color_gray_dark"
         android:fontFamily="sans-serif-medium"
         android:textSize="14sp"
-        android:layout_toRightOf="@id/tv_message_author"
-        android:layout_toLeftOf="@id/tv_counter_group"
-        android:layout_below="@id/tv_title_group"
+        android:layout_toRightOf="@id/iv_archive_icon"
+        android:layout_toLeftOf="@id/tv_date_archive"/>
+
+    <TextView
+        android:id="@+id/tv_message_author_archive"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        tools:text="John Doe"
+        android:textColor="@color/color_gray_dark"
+        android:fontFamily="sans-serif-medium"
+        android:textSize="14sp"
+        android:layout_toRightOf="@id/iv_archive_icon"
+        android:layout_below="@id/tv_archive_title"/>
+
+    <TextView
+        android:id="@+id/tv_message_archive"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        tools:text = "Когда я проходил интенсив, я мало спал"
+        android:textColor="@color/color_gray"
+        android:fontFamily="sans-serif-medium"
+        android:textSize="14sp"
+        android:layout_toRightOf="@id/tv_message_author_archive"
+        android:layout_toLeftOf="@id/tv_counter_archive"
+        android:layout_below="@id/tv_archive_title"
         android:layout_marginRight="@dimen/spacing_normal_16"/>
 
     <TextView
-        android:id="@+id/tv_date_group"
+        android:id="@+id/tv_date_archive"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:textSize="10sp"
@@ -59,14 +58,14 @@
         android:layout_alignParentTop="true"
         android:layout_alignParentBottom="true"
         android:textColor="@color/color_gray_dark"
-        tools:text = "18:00"/>
+        tools:text = "22:00"/>
 
     <TextView
-        android:id="@+id/tv_counter_group"
+        android:id="@+id/tv_counter_archive"
         android:layout_width="wrap_content"
         android:minWidth="@dimen/counter_size"
         android:layout_height="@dimen/counter_size"
-        android:background="@drawable/bd_counter"
+        android:background="@drawable/bg_counter_archive"
         android:gravity="center"
         android:paddingLeft="4dp"
         android:paddingRight="4dp"
@@ -74,6 +73,7 @@
         android:layout_alignParentRight="true"
         android:layout_alignParentBottom="true"
         android:textColor="@android:color/white"
+        android:visibility="gone"
         tools:text = "11"/>
 
 </RelativeLayout>

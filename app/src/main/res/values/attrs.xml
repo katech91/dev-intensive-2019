@@ -19,4 +19,8 @@
         <attr name="aiv_borderColor" format="color"/>
     </declare-styleable>
 
+    <declare-styleable name="rv_chat_list">
+        <attr name="chl_marginTop" format="dimension"/>
+    </declare-styleable>
+
 </resources>

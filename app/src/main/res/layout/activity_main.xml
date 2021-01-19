@@ -20,15 +20,26 @@
         </androidx.appcompat.widget.Toolbar>
         
     </com.google.android.material.appbar.AppBarLayout>
-
-    <androidx.recyclerview.widget.RecyclerView
-        android:id="@+id/rv_chat_list"
+    <RelativeLayout
         android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:layout_marginTop="?attr/actionBarSize"
-        tools:listitem="@layout/item_chat_single">
+        android:layout_height="wrap_content"
+        android:layout_marginTop="?attr/actionBarSize">
 
-    </androidx.recyclerview.widget.RecyclerView>
+        <include layout="@layout/item_archive"
+            android:id="@+id/archive_item"
+            android:visibility="gone"
+            tools:visibility="visible"/>
+
+        <androidx.recyclerview.widget.RecyclerView
+            android:id="@+id/rv_chat_list"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            tools:listitem="@layout/item_chat_single"
+            android:layout_below="@id/archive_item">
+        </androidx.recyclerview.widget.RecyclerView>
+    </RelativeLayout>
+
+
 
     <com.google.android.material.floatingactionbutton.FloatingActionButton
         android:id="@+id/fab"

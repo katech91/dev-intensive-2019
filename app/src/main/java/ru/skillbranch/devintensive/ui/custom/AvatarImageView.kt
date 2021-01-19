@@ -52,7 +52,6 @@ class AvatarImageView @JvmOverloads constructor(
     private val viewRect = Rect()
 
     private var initials: String = "??"
-//    private var drawable = AvatarInitialsDrawable(initials)
 
     private var avatar: String? = null
 
@@ -63,10 +62,9 @@ class AvatarImageView @JvmOverloads constructor(
                     R.styleable.AvatarImageView_aiv_borderWidth,
                     context.dpToPx(AvatarImageView.DEFAULT_BORDER_WIDTH)
             )
-            Log.d("M_AvatarImageView","init")
 
-            //borderColor = ta.getColor(R.styleable.AvatarImageView_aiv_borderColor, AvatarImageView.DEFAULT_BORDER_COLOR)
-borderColor = Color.RED
+            borderColor = ta.getColor(R.styleable.AvatarImageView_aiv_borderColor, AvatarImageView.DEFAULT_BORDER_COLOR)
+
             ta.recycle()
         }
         scaleType = ScaleType.CENTER_CROP
@@ -112,17 +110,14 @@ borderColor = Color.RED
         if (w == 0 || drawable == null) return
         val srcBm = drawable.toBitmap(w, h, Bitmap.Config.ARGB_8888)
         avatarPaint.shader = BitmapShader(srcBm, Shader.TileMode.CLAMP, Shader.TileMode.CLAMP)
-        Log.d("M_AvatarImageView","prepareShader")
     }
 
     override fun setImageBitmap(bm: Bitmap?) {
         super.setImageBitmap(bm)
         if (avatar != null) prepareShader(width,height)
-        Log.d("M_AvatarImageView","setImageBitmap")
     }
 
     override fun setImageDrawable(drawable: Drawable?) {
-        Log.d("M_AvatarImageView","setImageDrawable. $width")
         super.setImageDrawable(drawable)
         if (avatar != null) prepareShader(width, height)
 
@@ -131,7 +126,6 @@ borderColor = Color.RED
     override fun setImageResource(resId: Int) {
         super.setImageResource(resId)
         if (avatar != null) prepareShader(width,height)
-        Log.d("M_AvatarImageView","setImageResource")
     }
 
     private fun drawAvatar(canvas: Canvas){
