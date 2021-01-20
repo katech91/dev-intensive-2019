@@ -33,6 +33,7 @@ class ChatAdapter(val listener: (ChatItem)-> Unit) : RecyclerView.Adapter<ChatAd
     }
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): ChatItemViewHolder {
+        Log.d("M_ChatAdapter","onCreateViewHolder")
         var inflater = LayoutInflater.from(parent.context)
         return when(viewType){
             SINGLE_TYPE -> SingleViewHolder(inflater.inflate(R.layout.item_chat_single, parent, false))
@@ -42,6 +43,7 @@ class ChatAdapter(val listener: (ChatItem)-> Unit) : RecyclerView.Adapter<ChatAd
     }
 
     override fun onBindViewHolder(holder: ChatItemViewHolder, position: Int) {
+        Log.d("M_ChatAdapter","onBindViewHolder")
         holder.bind(items[position], listener)
     }
 
@@ -63,7 +65,6 @@ class ChatAdapter(val listener: (ChatItem)-> Unit) : RecyclerView.Adapter<ChatAd
 
         items = data
         diffResult.dispatchUpdatesTo(this)
-//        notifyDataSetChanged()
     }
 
     abstract inner class ChatItemViewHolder(convertView: View) : RecyclerView.ViewHolder(convertView), LayoutContainer {
@@ -83,6 +84,7 @@ class ChatAdapter(val listener: (ChatItem)-> Unit) : RecyclerView.Adapter<ChatAd
         }
 
         override fun bind(item: ChatItem, listener: (ChatItem) -> Unit) {
+            Log.d("M_ChatAdapter","SingleViewHolder::bind")
             if(item.avatar == null) {
                 Glide.with(itemView)
                         .clear(iv_avatar_single)

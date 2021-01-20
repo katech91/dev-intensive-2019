@@ -19,6 +19,7 @@ import kotlinx.android.synthetic.main.item_archive.view.*
 import ru.skillbranch.devintensive.R
 import ru.skillbranch.devintensive.ui.adapters.ChatAdapter
 import ru.skillbranch.devintensive.ui.adapters.ChatItemTouchHelperCallback
+import ru.skillbranch.devintensive.ui.archive.ArchiveActivity
 import ru.skillbranch.devintensive.ui.group.GroupActivity
 import ru.skillbranch.devintensive.viewmodels.MainViewModel
 
@@ -58,7 +59,7 @@ class MainActivity : AppCompatActivity() {
 
     private fun initToolbar() {
         setSupportActionBar(toolbar)
-        supportActionBar?.setDisplayHomeAsUpEnabled(true)
+        supportActionBar?.setDisplayHomeAsUpEnabled(false)
     }
 
     private fun initViews() {
@@ -90,7 +91,15 @@ class MainActivity : AppCompatActivity() {
             val intent = Intent(this, GroupActivity::class.java)
             startActivity(intent)
         }
-//        initArchive()
+
+        archive_item.setOnClickListener{
+            val intent = Intent(this, ArchiveActivity::class.java)
+            startActivity(intent)
+        }
+
+        with(archive_item){
+            
+        }
     }
 
     private fun initViewModel() {
@@ -115,6 +124,5 @@ class MainActivity : AppCompatActivity() {
             }
             if (!archive!!["count"].isNullOrEmpty() && archive!!["count"] != "0") tv_counter_archive.visibility = View.VISIBLE
         }
-
     }
 }
