@@ -113,16 +113,19 @@ class MainActivity : AppCompatActivity() {
         Log.d("M_MainActivity","initArchive")
         if ( archive.isNullOrEmpty()){
             archive_item.visibility = View.GONE
+            with(archive_item){
+                tv_counter_archive.text = "0"
+            }
         } else {
             archive_item.visibility = View.VISIBLE
 
             with(archive_item) {
-                tv_message_author_archive.text = archive!!["lastMessageAuthor"]
-                tv_message_archive.text = archive!!["lastMessage"]
-                tv_date_archive.text = archive!!["lastMessageDate"]
+                tv_message_author_archive.text = archive["lastMessageAuthor"]
+                tv_message_archive.text = archive["lastMessage"]
+                tv_date_archive.text = archive["lastMessageDate"]
                 tv_counter_archive.text = archive["count"] ?: "0"
             }
-            if (!archive!!["count"].isNullOrEmpty() && archive!!["count"] != "0") tv_counter_archive.visibility = View.VISIBLE
+            if (!archive["count"].isNullOrEmpty() && archive["count"] != "0") tv_counter_archive.visibility = View.VISIBLE
         }
     }
 }
