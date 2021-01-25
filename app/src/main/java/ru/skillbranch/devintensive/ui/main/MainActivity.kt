@@ -113,9 +113,6 @@ class MainActivity : AppCompatActivity() {
         Log.d("M_MainActivity","initArchive")
         if ( archive.isNullOrEmpty()){
             archive_item.visibility = View.GONE
-            with(archive_item){
-                tv_counter_archive.text = "0"
-            }
         } else {
             archive_item.visibility = View.VISIBLE
 
