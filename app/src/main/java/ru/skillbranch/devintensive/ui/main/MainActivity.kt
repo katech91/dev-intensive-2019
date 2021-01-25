@@ -120,7 +120,7 @@ class MainActivity : AppCompatActivity() {
                 tv_message_author_archive.text = archive!!["lastMessageAuthor"]
                 tv_message_archive.text = archive!!["lastMessage"]
                 tv_date_archive.text = archive!!["lastMessageDate"]
-                tv_counter_archive.text = archive!!["count"]
+                tv_counter_archive.text = archive["count"] ?: "0"
             }
             if (!archive!!["count"].isNullOrEmpty() && archive!!["count"] != "0") tv_counter_archive.visibility = View.VISIBLE
         }
