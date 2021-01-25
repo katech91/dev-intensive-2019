@@ -56,13 +56,13 @@ class ArchiveActivity: AppCompatActivity() {
     private fun initViews() {
         Log.d("M_ArchiveActivity","InitViews ")
         chatAdapter = ChatAdapter{
-            Snackbar.make(rv_archive_chat_list, "Click on ${it.title}", Snackbar.LENGTH_LONG)
+            Snackbar.make(rv_archive_list, "Click on ${it.title}", Snackbar.LENGTH_LONG)
         }
         val divider = DividerItemDecoration(this, DividerItemDecoration.VERTICAL)
         val touchCallback = ChatItemTouchHelperCallback(chatAdapter){
             val id = it.id
             viewModel.restoreFromArchive(id)
-            val snack = Snackbar.make(rv_archive_chat_list, "Вы точно хотите восстановить ${it.title} из архива?", Snackbar.LENGTH_LONG)
+            val snack = Snackbar.make(rv_archive_list, "Вы точно хотите восстановить ${it.title} из архива?", Snackbar.LENGTH_LONG)
             snack.setAction("ОТМЕНИТЬ", View.OnClickListener {
                 viewModel.addToArchive(id)
             })
@@ -70,9 +70,9 @@ class ArchiveActivity: AppCompatActivity() {
         }
         val touchHelper = ItemTouchHelper(touchCallback)
 
-        touchHelper.attachToRecyclerView(rv_archive_chat_list)
+        touchHelper.attachToRecyclerView(rv_archive_list)
 
-        with(rv_archive_chat_list){
+        with(rv_archive_list){
             adapter = chatAdapter
             layoutManager = LinearLayoutManager(this@ArchiveActivity)
             addItemDecoration(divider)
