@@ -26,12 +26,12 @@ data class Chat(
                 }
         }
 
-        private fun lastMessageShort(): Pair<String, String>{
+        fun lastMessageShort(): Pair<String, String>{
                 if (messages.isEmpty()) {
                         return "Сообщений еще нет" to "@John_Doe"
                 }else {
                         val lastMessage = messages.last()
-                        val from = lastMessage.from?.firstName + lastMessage.from?.lastName
+                        val from = lastMessage.from?.firstName ?: ""
                         val message = lastMessage.getMessage() ?: ""
                         var pair: Pair<String,String> = "" to ""
                         when(lastMessage.format()){
