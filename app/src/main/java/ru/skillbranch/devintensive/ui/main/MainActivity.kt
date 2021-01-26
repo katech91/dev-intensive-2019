@@ -92,12 +92,12 @@ class MainActivity : AppCompatActivity() {
             startActivity(intent)
         }
 
-        archive_item.setOnClickListener{
+        item_chat_archive.setOnClickListener{
             val intent = Intent(this, ArchiveActivity::class.java)
             startActivity(intent)
         }
 
-        with(archive_item){
+        with(item_chat_archive){
             
         }
     }
@@ -112,11 +112,11 @@ class MainActivity : AppCompatActivity() {
     private fun initArchive(archive: Map<String,String?>?) {
         Log.d("M_MainActivity","initArchive")
         if ( archive.isNullOrEmpty()){
-            archive_item.visibility = View.GONE
+            item_chat_archive.visibility = View.GONE
         } else {
-            archive_item.visibility = View.VISIBLE
+            item_chat_archive.visibility = View.VISIBLE
 
-            with(archive_item) {
+            with(item_chat_archive) {
                 tv_message_author_archive.text = archive["lastMessageAuthor"]
                 tv_message_archive.text = archive["lastMessage"]
                 tv_date_archive.text = archive["lastMessageDate"]
